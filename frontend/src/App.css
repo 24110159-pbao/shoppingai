@@ -1,0 +1,436 @@
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+
+/* ===========================
+   RESET
+=========================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Inter", sans-serif;
+}
+
+body {
+    min-height: 100vh;
+
+    background:
+        radial-gradient(circle at top left, #f9a8d4 0%, transparent 35%),
+        radial-gradient(circle at bottom right, #fca5a5 0%, transparent 35%),
+        linear-gradient(135deg, #fff1f2, #ffe4e6, #fecdd3);
+
+    color: #4b5563;
+}
+
+/* ===========================
+   APP
+=========================== */
+
+.home {
+    min-height: 100vh;
+    padding-bottom: 60px;
+}
+
+/* ===========================
+   NAVBAR
+=========================== */
+
+.navbar {
+    position: sticky;
+    top: 20px;
+
+    width: 90%;
+    margin: 20px auto;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 18px 28px;
+
+    background: rgba(255, 255, 255, 0.35);
+    backdrop-filter: blur(18px);
+
+    border: 1px solid rgba(255, 255, 255, 0.45);
+
+    border-radius: 22px;
+
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+
+    z-index: 100;
+}
+
+.logo {
+    font-size: 30px;
+    font-weight: 700;
+
+    background: linear-gradient(90deg, #ec4899, #ef4444);
+
+    background-clip: text;
+    -webkit-background-clip: text;
+
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+}
+
+.search {
+    width: 420px;
+
+    padding: 14px 18px;
+
+    background: rgba(255, 255, 255, 0.45);
+
+    border: 1px solid rgba(255, 255, 255, 0.55);
+
+    border-radius: 16px;
+
+    outline: none;
+
+    color: #374151;
+
+    transition: .3s;
+}
+
+.search::placeholder {
+    color: #6b7280;
+}
+
+.search:focus {
+    border-color: #ec4899;
+
+    box-shadow: 0 0 20px rgba(236, 72, 153, .2);
+}
+
+.nav-right {
+    display: flex;
+    gap: 12px;
+}
+
+.nav-right button {
+    width: 46px;
+    height: 46px;
+
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, .45);
+
+    border: 1px solid rgba(255, 255, 255, .55);
+
+    color: #ec4899;
+
+    font-size: 18px;
+
+    transition: .35s;
+}
+
+.nav-right button:hover {
+    background: linear-gradient(135deg, #ec4899, #ef4444);
+
+    color: white;
+
+    transform: translateY(-4px);
+
+    box-shadow: 0 8px 25px rgba(236, 72, 153, .35);
+}
+
+/* ===========================
+   BANNER
+=========================== */
+
+.banner {
+    width: 90%;
+
+    height: 340px;
+
+    margin: 40px auto;
+
+    border-radius: 30px;
+
+    display: flex;
+    align-items: center;
+
+    padding: 60px;
+
+    background: linear-gradient(
+        135deg,
+        rgba(255,255,255,.45),
+        rgba(255,228,230,.35)
+    );
+
+    backdrop-filter: blur(18px);
+
+    border: 1px solid rgba(255,255,255,.5);
+
+    box-shadow: 0 15px 40px rgba(236,72,153,.15);
+}
+
+.banner-content h1 {
+    font-size: 52px;
+
+    margin-bottom: 16px;
+
+    color: #be123c;
+}
+
+.banner-content p {
+    color: #6b7280;
+
+    font-size: 18px;
+
+    margin-bottom: 28px;
+}
+
+.banner-content button {
+    padding: 14px 32px;
+
+    border: none;
+
+    border-radius: 15px;
+
+    color: white;
+
+    font-weight: 600;
+
+    background: linear-gradient(135deg, #ec4899, #ef4444);
+
+    transition: .35s;
+}
+
+.banner-content button:hover {
+    transform: scale(1.05);
+
+    box-shadow: 0 0 25px rgba(236,72,153,.45);
+}
+
+/* ===========================
+   CATEGORY
+=========================== */
+
+.categories {
+    width: 90%;
+
+    margin: auto;
+
+    display: flex;
+    gap: 15px;
+
+    flex-wrap: wrap;
+}
+
+.categories button {
+    padding: 12px 22px;
+
+    border-radius: 50px;
+
+    background: rgba(255,255,255,.4);
+
+    border: 1px solid rgba(255,255,255,.5);
+
+    color: #4b5563;
+
+    backdrop-filter: blur(15px);
+
+    transition: .3s;
+}
+
+.categories button:hover {
+    transform: translateY(-2px);
+
+    background: rgba(236,72,153,.12);
+}
+
+.categories .active {
+    background: linear-gradient(135deg, #ec4899, #ef4444);
+
+    color: white;
+}
+
+/* ===========================
+   PRODUCTS
+=========================== */
+
+.products {
+    width: 90%;
+
+    margin: 60px auto;
+}
+
+.products h2 {
+    font-size: 34px;
+
+    margin-bottom: 28px;
+
+    color: #be123c;
+}
+
+.product-grid {
+    display: grid;
+
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+
+    gap: 28px;
+}
+
+/* ===========================
+   CARD
+=========================== */
+
+.card {
+    background: rgba(255,255,255,.35);
+
+    backdrop-filter: blur(18px);
+
+    border: 1px solid rgba(255,255,255,.5);
+
+    border-radius: 24px;
+
+    overflow: hidden;
+
+    transition: .35s;
+
+    box-shadow: 0 10px 30px rgba(236,72,153,.12);
+}
+
+.card:hover {
+    transform: translateY(-10px);
+
+    box-shadow:
+        0 15px 35px rgba(236,72,153,.25),
+        0 0 20px rgba(255,255,255,.3);
+}
+
+.card img {
+    width: 100%;
+
+    height: 260px;
+
+    object-fit: cover;
+}
+
+.card-body {
+    padding: 22px;
+}
+
+.card-body h3 {
+    font-size: 22px;
+
+    margin-bottom: 10px;
+
+    color: #374151;
+}
+
+.rating {
+    display: block;
+
+    margin-bottom: 15px;
+
+    color: #f59e0b;
+
+    font-weight: 600;
+}
+
+.card-body h4 {
+    margin-bottom: 20px;
+
+    color: #e11d48;
+
+    font-size: 24px;
+}
+
+.card-body button {
+    width: 100%;
+
+    padding: 14px;
+
+    border: none;
+
+    border-radius: 14px;
+
+    background: linear-gradient(135deg, #ec4899, #ef4444);
+
+    color: white;
+
+    font-weight: 600;
+
+    transition: .35s;
+}
+
+.card-body button:hover {
+    transform: scale(1.03);
+
+    box-shadow: 0 0 20px rgba(236,72,153,.45);
+}
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+
+@media (max-width: 900px) {
+
+    .navbar {
+        flex-direction: column;
+        gap: 18px;
+    }
+
+    .search {
+        width: 100%;
+    }
+
+    .banner {
+        height: auto;
+        padding: 40px;
+    }
+
+    .banner-content h1 {
+        font-size: 38px;
+    }
+}
+
+@media (max-width: 600px) {
+
+    .products h2 {
+        font-size: 28px;
+    }
+
+    .card img {
+        height: 220px;
+    }
+}
+
+.back-btn{
+  
+    width:100px;
+    height:60px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.45);
+
+    border:1px solid rgba(255,255,255,.55);
+
+    color:#ec4899;
+
+    font-size:22px;
+
+    transition:.3s;
+}
+
+.back-btn:hover {
+    background: linear-gradient(135deg,#d91175,#e82323);
+
+    text-decoration: none;
+
+    transform: translateY(-3px);
+}
+
+.back-btn:visited,
+.back-btn:link,
+.back-btn:active {
+    text-decoration: none;
+    color: #f9c4df;
+}
