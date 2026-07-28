@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+pandas
+numpy
+sqlalchemy
+pymysql
+joblib
+scikit-learn
+mlxtend
+shap
+python-dotenv
