@@ -1,97 +1,37 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
-
-
 import Home from "./pages/Home";
 import Product from "./pages/Product";
 import Cart from "./pages/Cart";
 import Profile from "./pages/Profile";
 import AIRecommendation from "./pages/AIRecommendation";
 import Login from "./pages/Login";
+import Register from "./pages/Register"; // Đã thêm import thiếu của bạn
 
-
-export default function App(){
-
-
+export default function App() {
   const token = localStorage.getItem("token");
+  let isAdmin = false;
 
-
-  let role = null;
-
-
-  if(token){
-
-    try{
-
-      const payload = jwtDecode(token);
-
-      role = payload.role;
-
+  if (token) {
+    try {
+      isAdmin = jwtDecode(token)?.role === "ADMIN";
+      
+      
+    } catch (err) {
+      console.error(err);
     }
-    catch(err){
-
-      console.log(err);
-
-    }
-
   }
 
-
-
   return (
-
     <Routes>
-
-
-      <Route
-        path="/login"
-        element={<Login />}
-      />
-
-
-
-      <Route
-        path="/"
-        element={<Home />}
-      />
-
-
-
-      <Route
-        path="/product/:id"
-        element={<Product />}
-      />
-
-
-
-      <Route
-        path="/cart"
-        element={<Cart />}
-      />
-
-
-
-      <Route
-        path="/profile"
-        element={<Profile />}
-      />
-
-
-
-      <Route
-        path="/ai"
-        element={
-          role === "ADMIN"
-          ?
-          <AIRecommendation />
-          :
-          <Navigate to="/" replace />
-        }
-      />
-
-
+      <Route path="/" element={<Home />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="/cart" element={<Cart />} />
+      <Route path="/profile" element={<Profile />} />
+      <Route path="/product/:id" element={<Product />} />
+      
+      <Route path="/ai" element={isAdmin ? <AIRecommendation /> : <Navigate to="/" replace />} />
     </Routes>
-
   );
-
 }

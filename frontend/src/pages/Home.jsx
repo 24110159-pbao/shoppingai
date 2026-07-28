@@ -55,6 +55,7 @@ export default function Home(){
     console.log(payload);
 
     role = payload.role;
+  
 
   }
   catch(err){

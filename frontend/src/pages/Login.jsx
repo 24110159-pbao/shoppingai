@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import "./Auth.css";
 
 export default function Login() {
 
@@ -50,39 +51,43 @@ export default function Login() {
 
 
   return (
-    <div style={{ padding: "50px" }}>
+      <div className="auth-page">
 
-      <h2>Đăng nhập</h2>
+          <div className="auth-card">
 
+              <h2>Đăng nhập</h2>
 
-      <input
-        placeholder="Username"
-        value={username}
-        onChange={(e)=>setUsername(e.target.value)}
-      />
+              <input
+                  className="auth-input"
+                  placeholder="Tên đăng nhập"
+                  value={username}
+                  onChange={(e)=>setUsername(e.target.value)}
+              />
 
+              <input
+                  className="auth-input"
+                  type="password"
+                  placeholder="Mật khẩu"
+                  value={password}
+                  onChange={(e)=>setPassword(e.target.value)}
+              />
 
-      <br/>
-      <br/>
+              <button
+                  className="auth-btn"
+                  onClick={handleLogin}
+              >
+                  Đăng nhập
+              </button>
 
+              <button
+                  className="auth-link"
+                  onClick={()=>navigate("/register")}
+              >
+                  Đăng ký
+              </button>
 
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e)=>setPassword(e.target.value)}
-      />
+          </div>
 
-
-      <br/>
-      <br/>
-
-
-      <button onClick={handleLogin}>
-        Đăng nhập
-      </button>
-
-
-    </div>
+      </div>
   );
 }
