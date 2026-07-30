@@ -59,6 +59,23 @@ public class UserService {
                 user.getCreatedAt()
         );
     }
+    public void deleteCurrentUser(String token) {
+
+        if (token.startsWith("Bearer ")) {
+            token = token.substring(7);
+        }
+
+        if (!jwtService.isAccessToken(token) || !jwtService.isTokenValid(token)) {
+            throw new RuntimeException("Access token không hợp lệ");
+        }
+
+        String username = jwtService.extractUsername(token);
+
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("User không tồn tại"));
+
+        userRepository.delete(user);
+    }
 
 
 }
