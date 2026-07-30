@@ -54,4 +54,24 @@ public class UserController {
 
         return response;
     }
+    @DeleteMapping("/me")
+    public ApiResponse<?> deleteMe(
+            @RequestHeader("Authorization") String authorizationHeader) {
+
+        ApiResponse<Object> response = new ApiResponse<>();
+
+        try {
+            userService.deleteCurrentUser(authorizationHeader);
+
+            response.setCode("200");
+            response.setMessage("Xóa tài khoản thành công");
+
+        } catch (RuntimeException e) {
+            response.setCode("400");
+            response.setMessage(e.getMessage());
+        }
+
+        return response;
+    }
+
 }

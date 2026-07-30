@@ -170,3 +170,35 @@
         font-size:28px;
     }
 }
+
+/* Delete Account */
+
+.delete-btn{
+
+    width:100%;
+
+    padding:15px;
+
+    border:none;
+
+    border-radius:15px;
+
+    background:linear-gradient(135deg,#f1cdde,#f2bebe);
+
+    color:rgb(9, 3, 3);
+
+    font-size:16px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.35s;
+}
+
+.delete-btn:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:0 10px 25px rgba(236,72,153,.35);
+}

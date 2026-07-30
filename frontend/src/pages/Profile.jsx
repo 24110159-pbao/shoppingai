@@ -58,7 +58,34 @@ export default function Profile() {
       </div>
     );
   }
+  const handleDeleteAccount = async () => {
+    const confirmDelete = window.confirm(
+      "Bạn có chắc chắn muốn xóa tài khoản? Hành động này không thể hoàn tác."
+    );
 
+    if (!confirmDelete) return;
+
+    try {
+      const token = localStorage.getItem("token");
+
+      await axios.delete("http://localhost:8080/shoppingai/users/me", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      localStorage.removeItem("token");
+      localStorage.removeItem("refreshToken");
+
+      alert("Xóa tài khoản thành công");
+      navigate("/login");
+    } catch (err) {
+      console.error(err);
+      alert(
+        err.response?.data?.message || "Xóa tài khoản thất bại"
+      );
+    }
+};
   return (
     <div className="profile-page">
 
@@ -99,8 +126,16 @@ export default function Profile() {
           <button
             className="logout-btn"
             onClick={handleLogout}
+             style={{ marginBottom: "20px" }}
           >
             Đăng xuất
+          </button>
+
+          <button
+            className="delete-btn"
+            onClick={handleDeleteAccount}
+          >
+            Xóa tài khoản
           </button>
 
         </div>
