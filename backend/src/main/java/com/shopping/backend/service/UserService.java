@@ -1,14 +1,14 @@
 package com.shopping.backend.service;
 
 import com.shopping.backend.dto.request.User.RequestCreateUser;
+import com.shopping.backend.dto.response.UserResponse;
 import com.shopping.backend.entity.Role;
 import com.shopping.backend.entity.User;
 import com.shopping.backend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import java.time.LocalDateTime;
+
 
 
 @Service
@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 public class UserService {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder encoder;
+    private final JwtService jwtService;
 
     public User createUser(RequestCreateUser request) {
 
@@ -36,8 +37,27 @@ public class UserService {
 
         return userRepository.save(user);
     }
-    public void deleteUser(String id) {
-        userRepository.deleteById(id);
+    public UserResponse getCurrentUser(String token) {
+
+        if (token.startsWith("Bearer ")) {
+            token = token.substring(7);
+        }
+
+        if (!jwtService.isAccessToken(token) || !jwtService.isTokenValid(token)) {
+            throw new RuntimeException("Access token không hợp lệ");
+        }
+
+        String username = jwtService.extractUsername(token);
+
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("User không tồn tại"));
+
+        return new UserResponse(
+                user.getUsername(),
+                user.getFullName(),
+                user.getEmail(),
+                user.getCreatedAt()
+        );
     }
 
 
