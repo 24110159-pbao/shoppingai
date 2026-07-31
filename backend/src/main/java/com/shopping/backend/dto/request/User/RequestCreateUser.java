@@ -1,7 +1,6 @@
 package com.shopping.backend.dto.request.User;
 
 import jakarta.validation.constraints.NotBlank;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 

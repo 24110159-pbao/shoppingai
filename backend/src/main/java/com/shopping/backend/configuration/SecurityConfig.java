@@ -25,7 +25,9 @@ public class SecurityConfig {
         String[] publicApi = {
                 "/users/create",
                 "/auth/login",
-                "/auth/refresh"
+                "/auth/refresh",
+                "/products",
+                "/products/*"
         };
 
 
@@ -48,7 +50,15 @@ public class SecurityConfig {
 
                         .requestMatchers(
                                 HttpMethod.POST,
-                                publicApi
+                                "/users/create",
+                                "/auth/login",
+                                "/auth/refresh"
+                        ).permitAll()
+
+                        .requestMatchers(
+                                HttpMethod.GET,
+                                "/products",
+                                "/products/**"
                         ).permitAll()
 
                         .anyRequest().authenticated()

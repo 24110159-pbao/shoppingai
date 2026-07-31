@@ -7,6 +7,8 @@ import Profile from "./pages/Profile";
 import AIRecommendation from "./pages/AIRecommendation";
 import Login from "./pages/Login";
 import Register from "./pages/Register"; // Đã thêm import thiếu của bạn
+import ProductDetail from "./pages/ProductDetail";
+import ProductManage from "./pages/ProductManage";
 
 export default function App() {
   const token = localStorage.getItem("token");
@@ -29,9 +31,10 @@ export default function App() {
       <Route path="/register" element={<Register />} />
       <Route path="/cart" element={<Cart />} />
       <Route path="/profile" element={<Profile />} />
-      <Route path="/product/:id" element={<Product />} />
-      
+      <Route path="/product" element={<Product />} />
+      <Route path="/product/:id" element={<ProductDetail />} />
       <Route path="/ai" element={isAdmin ? <AIRecommendation /> : <Navigate to="/" replace />} />
+      <Route path="/products/manage" element={<ProductManage/>}/>
     </Routes>
   );
 }
