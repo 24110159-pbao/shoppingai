@@ -185,7 +185,7 @@ INSERT INTO users
 (id, username, password, full_name, email, role)
 VALUES
 (
-'11111111-1111-1111-1111-111111111111',
+'cf6787fa-329e-46f9-95ec-1283181c7b44',
 'admin',
 '$2a$10$8Sa.kBZPSKVKyn1uiRWo6eoJSxqHwYl4BKowlfnSssPjh9XSCEwky',
 'pbao',
@@ -193,17 +193,17 @@ VALUES
 'ADMIN'
 ),
 (
-'22222222-2222-2222-2222-222222222222',
-'user01',
-'123456',
+'f4aeb519-f268-4e74-be52-ab937721ec96',
+'user',
+'$2a$10$FNd27.yYrRsMgu59TZTHE.QP8qHcBr/HSb6.mw6faFETQGQxaDoge',
 'Nguyễn Văn A',
 'a@gmail.com',
 'USER'
 ),
 (
-'33333333-3333-3333-3333-333333333333',
-'user02',
-'123456',
+'f63671e2-d9f9-4502-80d8-dcb49273e8b3',
+'test',
+'$10$YQF35CLiYoAMnX1NuL3HYeaIAXosf1ohWT5Yk659TL1FbuPoppXnC',
 'Nguyễn Văn B',
 'b@gmail.com',
 'USER'
@@ -212,16 +212,16 @@ VALUES
 INSERT INTO products
 (category_id, name, price, quantity, image, rating)
 VALUES
-(2, 'iPhone 16 Pro', 28990000, 30, 'https://picsum.photos/400/400?1', 4.9),
-(5, 'AirPods Pro', 5990000, 50, 'https://picsum.photos/400/400?2', 4.8),
-(1, 'MacBook Pro', 45990000, 15, 'https://picsum.photos/400/400?3', 5.0),
-(4, 'Apple Watch', 9990000, 20, 'https://picsum.photos/400/400?4', 4.7);
+(2, 'iPhone 16 Pro', 28990000, 30, 'https://bhstore.vn/uploads/iphone-16-promax-bhstore_3_1731641286.png', 4.9),
+(5, 'AirPods Pro', 5990000, 50, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMPZWsKrge8b9QNJfiG8Ov9DEgK98xeIgXBcWiqlrbeQ&s=10', 4.8),
+(1, 'MacBook Pro', 45990000, 15, 'https://ttcenter.com.vn/uploads/product/966w54g1-1931-macbook-pro-16-inch-m1-max-32gb-1tb-10cpu-24gpu.webp', 5.0),
+(4, 'Apple Watch', 9990000, 20, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRduiq4Pigyn4LPNIh7l_L13oAhsy7lQY02brTHhBhO6A&s=10', 4.7);
 
 INSERT INTO orders
 (user_id, total_price, status)
 VALUES
-('22222222-2222-2222-2222-222222222222', 28990000, 'COMPLETED'),
-('33333333-3333-3333-3333-333333333333', 5990000, 'PENDING');
+('f4aeb519-f268-4e74-be52-ab937721ec96', 28990000, 'COMPLETED'),
+('f63671e2-d9f9-4502-80d8-dcb49273e8b3', 5990000, 'PENDING');
 
 INSERT INTO order_items
 (order_id, product_id, quantity, unit_price)
@@ -233,14 +233,14 @@ INSERT INTO recommendations
 (user_id, product_id, type, message, confidence)
 VALUES
 (
-'22222222-2222-2222-2222-222222222222',
+'f4aeb519-f268-4e74-be52-ab937721ec96',
 2,
 'CROSS_SELL',
 'Khách hàng mua iPhone thường mua thêm AirPods Pro.',
 95.50
 ),
 (
-'33333333-3333-3333-3333-333333333333',
+'f63671e2-d9f9-4502-80d8-dcb49273e8b3',
 4,
 'UP_SELL',
 'Apple Watch là sản phẩm phù hợp với các thiết bị Apple của bạn.',

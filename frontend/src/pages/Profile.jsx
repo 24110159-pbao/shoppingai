@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import axiosClient from "../api/axiosClient";
 import "./Profile.css";
 
 export default function Profile() {
@@ -11,15 +11,9 @@ export default function Profile() {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const token = localStorage.getItem("token");
-
-        const res = await axios.get(
-          "http://localhost:8080/shoppingai/users/me",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
+        
+        const res = await axiosClient.get(
+            "/users/me"
         );
 
         setUser(res.data.result);

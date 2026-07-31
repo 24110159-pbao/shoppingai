@@ -1,38 +1,8 @@
 import { Link, Navigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
+import { useEffect, useState } from "react";
 import "../App.css";
 
-
-const products = [
-  {
-    id:1,
-    name:"iPhone 16 Pro",
-    price:"28.990.000₫",
-    image:"https://picsum.photos/400/400?1",
-    rating:4.9
-  },
-  {
-    id:2,
-    name:"AirPods Pro",
-    price:"5.990.000₫",
-    image:"https://picsum.photos/400/400?2",
-    rating:4.8
-  },
-  {
-    id:3,
-    name:"MacBook Pro",
-    price:"45.990.000₫",
-    image:"https://picsum.photos/400/400?3",
-    rating:5.0
-  },
-  {
-    id:4,
-    name:"Apple Watch",
-    price:"9.990.000₫",
-    image:"https://picsum.photos/400/400?4",
-    rating:4.7
-  }
-];
 
 
 export default function Home(){
@@ -63,8 +33,29 @@ export default function Home(){
     console.log("JWT lỗi");
 
   }
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    fetch("http://localhost:8080/shoppingai/products")
+      .then((res) => res.json())
+      .then((data) => {
+        setProducts(data.result);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        setLoading(false);
+      });
+  }, []);
 
+  const formatPrice = (price) => {
+    return Number(price).toLocaleString("vi-VN") + "₫";
+  };
+
+  if (loading) {
+    return <h2 style={{ textAlign: "center" }}>Đang tải...</h2>;
+  }
 
   return (
 
@@ -108,11 +99,19 @@ export default function Home(){
           {
             role === "ADMIN" &&
             (
-              <Link to="/ai">
-                <button>
-                  🤖
-                </button>
-              </Link>
+              <>
+                <Link to="/products/manage">
+                    <button>📦</button>
+                </Link>
+                
+                <Link to="/ai">
+                  <button>
+                    🤖
+                  </button>
+                </Link>
+              </>
+
+
             )
           }
 
@@ -207,14 +206,11 @@ export default function Home(){
                     {item.name}
                   </h3>
 
-
-                  <span className="rating">
-                    ⭐ {item.rating}
-                  </span>
+                  <p>{item.categoryName}</p>
 
 
                   <h4>
-                    {item.price}
+                    {formatPrice(item.price)}
                   </h4>
 
 
