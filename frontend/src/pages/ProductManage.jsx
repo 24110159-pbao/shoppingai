@@ -53,7 +53,13 @@ export default function ProductManage() {
 
     const [categories,setCategories] = useState([]);
 
+    const [showCategory, setShowCategory] = useState(false);
 
+    const [category, setCategory] = useState({
+        name: ""
+    });
+
+    const [editingCategoryId, setEditingCategoryId] = useState(null);
 
     if(role !== "ADMIN"){
 
@@ -61,11 +67,11 @@ export default function ProductManage() {
 
     }
     //============================
-    // Load Product
+    // Load Product and Category
     //============================
 
     useEffect(() => {
-
+        loadCategories();
         loadProducts();
 
     }, []);
@@ -96,6 +102,15 @@ export default function ProductManage() {
 
         }
 
+    }
+
+    async function loadCategories() {
+        try {
+            const res = await axiosClient.get("/categories");
+            setCategories(res.data.result);
+        } catch (err) {
+            console.log(err);
+        }
     }
 
     //============================
@@ -159,7 +174,20 @@ export default function ProductManage() {
 
     }
 
-    //============================
+    async function createCategory() {
+        try {
+            const res = await axiosClient.post("/categories", category);
+
+            alert(res.data.message);
+
+            setCategory({ name: "" });
+
+            loadCategories();
+        } catch (err) {
+            alert("Thêm category thất bại");
+        }
+    }
+        //============================
     // Update
     //============================
 
@@ -199,6 +227,32 @@ export default function ProductManage() {
 
     }
 
+    async function updateCategory() {
+
+        try {
+
+            const res = await axiosClient.put(
+                `/categories/${editingCategoryId}`,
+                category
+            );
+
+            alert(res.data.message);
+
+            setEditingCategoryId(null);
+
+            setCategory({
+                name: ""
+            });
+
+            loadCategories();
+
+        } catch (err) {
+
+            alert("Cập nhật category thất bại");
+
+        }
+
+    }
     //============================
     // Delete
     //============================
@@ -248,6 +302,23 @@ export default function ProductManage() {
 
     }
 
+    async function deleteCategory(id) {
+
+        try {
+            if(!window.confirm("Xóa category?"))
+                return;
+
+            const res = await axiosClient.delete(
+                `/categories/${id}`
+            );
+
+            alert(res.data.message);
+
+            loadCategories();
+        } catch (err) {
+            alert("Xóa category thất bại");
+        }
+    }
     //============================
     // Edit
     //============================
@@ -280,6 +351,13 @@ export default function ProductManage() {
 
     }
 
+    function editCategory(item) {
+        setEditingCategoryId(item.id);
+
+        setCategory({
+            name: item.name
+        });
+    }
     //============================
     // View
     //============================
@@ -304,6 +382,13 @@ export default function ProductManage() {
 
             </nav>
             <h1>QUẢN LÝ SẢN PHẨM</h1>
+
+            <button
+                className="btn-category"
+                onClick={() => setShowCategory(!showCategory)}
+            >
+                {showCategory ? "Ẩn quản lý Category" : "Quản lý Category"}
+            </button>
 
             <h2>
 
@@ -395,27 +480,26 @@ export default function ProductManage() {
 
                 />
 
-                <input
-
-                    type="number"
-
-                    placeholder="Category ID"
-
+                <select
                     value={product.categoryId}
-
                     onChange={(e) =>
-
                         setProduct({
-
                             ...product,
-
                             categoryId: e.target.value
-
                         })
-
                     }
+                >
+                    <option value="">-- Chọn Category --</option>
 
-                />
+                    {categories.map(item => (
+                        <option
+                            key={item.id}
+                            value={item.id}
+                        >
+                            {item.name}
+                        </option>
+                    ))}
+                </select>
 
                 <input
 
@@ -490,7 +574,66 @@ export default function ProductManage() {
                 </div>
 
             </div>
+            {
+                showCategory && (
+                    <div className="category-manage">
 
+                        <h2>Quản lý Category</h2>
+
+                        <input
+                            type="text"
+                            placeholder="Tên category"
+                            value={category.name}
+                            onChange={(e) =>
+                                setCategory({
+                                    name: e.target.value
+                                })
+                            }
+                        />
+
+                        {
+                            editingCategoryId === null ? (
+                                <button onClick={createCategory}>
+                                    Thêm
+                                </button>
+                            ) : (
+                                <button onClick={updateCategory}>
+                                    Cập nhật
+                                </button>
+                            )
+                        }
+
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Tên Category</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                {categories.map(item => (
+                                    <tr key={item.id}>
+                                        <td>{item.id}</td>
+                                        <td>{item.name}</td>
+                                        <td>
+                                            <button onClick={() => editCategory(item)}>
+                                                Sửa
+                                            </button>
+
+                                            <button onClick={() => deleteCategory(item.id)}>
+                                                Xóa
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+
+                    </div>
+                )
+            }
             <h2>Danh sách sản phẩm</h2>
 
             {
@@ -638,6 +781,7 @@ export default function ProductManage() {
                         </table>
 
                     </div>
+                    
 
             }
 
