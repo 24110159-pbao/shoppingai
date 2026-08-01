@@ -35,6 +35,8 @@ export default function Home(){
   }
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] =useState(null);
 
   useEffect(() => {
     fetch("http://localhost:8080/shoppingai/products")
@@ -53,10 +55,25 @@ export default function Home(){
     return Number(price).toLocaleString("vi-VN") + "₫";
   };
 
+  useEffect(() => {
+    fetch("http://localhost:8080/shoppingai/categories")
+      .then((res) => res.json())
+      .then((data) => {
+        setCategories(data.result);
+      })
+      .catch(console.error);
+  }, []);
+  
+  const filteredProducts =
+    selectedCategory === null
+      ? products
+      : products.filter(
+          (product) => product.categoryId === selectedCategory
+        );
+
   if (loading) {
     return <h2 style={{ textAlign: "center" }}>Đang tải...</h2>;
   }
-
   return (
 
     <div className="Home">
@@ -142,31 +159,26 @@ export default function Home(){
         </div>
 
       </section>
-
-
-
+      
 
       <section className="categories">
 
-        <button className="active">
+        <button
+          className={selectedCategory === null ? "active" : ""}
+          onClick={() => setSelectedCategory(null)}
+        >
           Tất cả
         </button>
 
-        <button>
-          Điện thoại
-        </button>
-
-        <button>
-          Laptop
-        </button>
-
-        <button>
-          Tai nghe
-        </button>
-
-        <button>
-          Đồng hồ
-        </button>
+        {categories.map(category => (
+          <button
+            key={category.id}
+            className={selectedCategory === category.id ? "active" : ""}
+            onClick={() => setSelectedCategory(category.id)}
+          >
+            {category.name}
+          </button>
+        ))}
 
       </section>
 
@@ -182,54 +194,30 @@ export default function Home(){
 
 
         <div className="product-grid">
+          {filteredProducts.map(item => (
+            <div className="card" key={item.id}>
+              <img
+                src={item.image}
+                alt={item.name}
+              />
 
+              <div className="card-body">
 
-          {
-            products.map(item=>(
+                <h3>{item.name}</h3>
 
-              <div 
-                className="card"
-                key={item.id}
-              >
+                <p>Danh mục: {item.categoryName}</p>
 
+                <p>Số lượng: {item.quantity}</p>
 
-                <img
-                  src={item.image}
-                  alt={item.name}
-                />
+                <h4>{formatPrice(item.price)}</h4>
 
-
-                <div className="card-body">
-
-
-                  <h3>
-                    {item.name}
-                  </h3>
-
-                  <p>{item.categoryName}</p>
-
-
-                  <h4>
-                    {formatPrice(item.price)}
-                  </h4>
-
-
-                  <Link to={`/product/${item.id}`}>
-                    <button>
-                      Mua ngay
-                    </button>
-                  </Link>
-
-
-                </div>
-
+                <Link to={`/product/${item.id}`}>
+                  <button>Mua ngay</button>
+                </Link>
 
               </div>
-
-            ))
-          }
-
-
+            </div>
+          ))}
         </div>
 
 

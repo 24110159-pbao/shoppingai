@@ -27,7 +27,7 @@ body {
    APP
 =========================== */
 
-.home {
+.Home {
     min-height: 100vh;
     padding-bottom: 60px;
 }
@@ -266,9 +266,8 @@ body {
 
 .product-grid {
     display: grid;
-
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-
+    grid-template-columns: repeat(auto-fill, minmax(260px, 260px));
+    justify-content: start;
     gap: 28px;
 }
 
