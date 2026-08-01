@@ -333,3 +333,208 @@ RESPONSIVE
     }
 
 }
+
+/*==============================
+CATEGORY MANAGE
+==============================*/
+
+.category-manage{
+
+    background:rgba(255,255,255,.35);
+
+    backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,255,255,.5);
+
+    border-radius:24px;
+
+    padding:30px;
+
+    margin:35px 0;
+
+    box-shadow:0 10px 30px rgba(236,72,153,.15);
+
+}
+
+.category-manage h2{
+
+    margin-bottom:20px;
+
+    color:#374151;
+
+}
+
+.category-manage input{
+
+    width:100%;
+
+    padding:15px;
+
+    border-radius:15px;
+
+    border:1px solid rgba(255,255,255,.55);
+
+    background:rgba(255,255,255,.45);
+
+    outline:none;
+
+    font-size:15px;
+
+    transition:.3s;
+
+    margin-bottom:15px;
+
+}
+
+.category-manage input:focus{
+
+    border-color:#ec4899;
+
+    box-shadow:0 0 15px rgba(236,72,153,.25);
+
+}
+
+.category-manage button{
+
+    padding:12px 22px;
+
+    border:none;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    font-weight:600;
+
+    color:white;
+
+    transition:.3s;
+
+    margin-right:10px;
+
+}
+
+.category-manage button:hover{
+
+    transform:translateY(-2px);
+
+}
+
+.category-manage button:first-of-type{
+
+    background:linear-gradient(135deg,#ec4899,#ef4444);
+
+}
+
+.category-manage table{
+
+    width:100%;
+
+    margin-top:25px;
+
+    border-collapse:collapse;
+
+}
+
+.category-manage thead{
+
+    background:linear-gradient(135deg,#ec4899,#ef4444);
+
+    color:white;
+
+}
+
+.category-manage th{
+
+    padding:15px;
+
+    text-align:center;
+
+}
+
+.category-manage td{
+
+    padding:15px;
+
+    text-align:center;
+
+    border-bottom:1px solid rgba(255,255,255,.3);
+
+}
+
+.category-manage tbody tr{
+
+    transition:.3s;
+
+}
+
+.category-manage tbody tr:hover{
+
+    background:rgba(236,72,153,.08);
+
+}
+
+.category-manage td button{
+
+    margin:0 5px;
+
+}
+
+.category-manage td button:first-child{
+
+    background:#f59e0b;
+
+}
+
+.category-manage td button:first-child:hover{
+
+    background:#d97706;
+
+}
+
+.category-manage td button:last-child{
+
+    background:#ef4444;
+
+}
+
+.category-manage td button:last-child:hover{
+
+    background:#dc2626;
+
+}
+/*==============================
+BUTTON CATEGORY
+==============================*/
+
+.btn-category{
+
+    padding:14px 24px;
+
+    border:none;
+
+    border-radius:15px;
+
+    background:linear-gradient(135deg,#8b5cf6,#6366f1);
+
+    color:#fff;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    margin-bottom:25px;
+
+}
+
+.btn-category:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:0 10px 25px rgba(99,102,241,.35);
+
+}

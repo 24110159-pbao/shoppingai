@@ -22,8 +22,8 @@ public class ProductService {
     // GET /products
     public List<ProductResponse> getAllProducts() {
 
-        return productRepository.findAll()// nếu ko dùng map thì dùng for
-                .stream()
+        return productRepository.findAll()
+                .stream()// nếu ko dùng map thì dùng for
                 .map(product -> ProductResponse.builder()
                         .id(product.getId())
                         .categoryId(product.getCategory().getId())
