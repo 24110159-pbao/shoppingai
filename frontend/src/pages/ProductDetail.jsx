@@ -1,12 +1,18 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import "./ProductDetail.css";
+import { useNavigate } from "react-router-dom";
+import { useCart } from "../context/CartContext";
+
 export default function ProductDetail() {
     const { id } = useParams();
 
     const [product, setProduct] = useState(null);
     const [loading, setLoading] = useState(true);
 
+    const navigate = useNavigate();
+
+    const { addToCart } = useCart();
     useEffect(() => {
         fetch(`http://localhost:8080/shoppingai/products/${id}`)
             .then(res => res.json())
@@ -67,12 +73,32 @@ export default function ProductDetail() {
                     </p>
 
                     <div className="detail-actions">
-                        <button className="buy-btn">
-                            Mua ngay
+                        <button
+                        className="buy-btn"
+                        onClick={()=>{
+
+                        addToCart(product);
+
+                        navigate("/checkout");
+
+                        }}
+                        >
+                        Mua ngay
                         </button>
 
-                        <button className="cart-btn">
-                            Thêm vào giỏ
+                        <button
+                        className="cart-btn"
+                        onClick={()=>{
+
+                            addToCart(product);
+
+                            navigate("/cart");
+
+                        }}
+                        >
+
+                        Thêm vào giỏ
+
                         </button>
                     </div>
 

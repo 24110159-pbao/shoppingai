@@ -8,7 +8,7 @@ import "../App.css";
 export default function Home(){
 
   const token = localStorage.getItem("token");
-
+  
 
   if(!token){
     return <Navigate to="/login" replace />;
@@ -37,7 +37,9 @@ export default function Home(){
   const [loading, setLoading] = useState(true);
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] =useState(null);
-
+  
+  const [search, setSearch] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
   useEffect(() => {
     fetch("http://localhost:8080/shoppingai/products")
       .then((res) => res.json())
@@ -64,12 +66,32 @@ export default function Home(){
       .catch(console.error);
   }, []);
   
-  const filteredProducts =
-    selectedCategory === null
-      ? products
-      : products.filter(
-          (product) => product.categoryId === selectedCategory
-        );
+  const filteredProducts = products.filter((product) => {
+
+    const matchCategory =
+      selectedCategory === null ||
+      product.categoryId === selectedCategory;
+
+    const matchSearch =
+      product.name
+        .toLowerCase()
+        .includes(search.toLowerCase());
+
+    return matchCategory && matchSearch;
+  });
+        
+  useEffect(() => {
+    if (search.trim() === "") {
+      setSuggestions([]);
+      return;
+    }
+
+    const result = products.filter((product) =>
+      product.name.toLowerCase().includes(search.toLowerCase())
+    );
+
+    setSuggestions(result.slice(0, 5));
+  }, [search, products]);
 
   if (loading) {
     return <h2 style={{ textAlign: "center" }}>Đang tải...</h2>;
@@ -87,11 +109,32 @@ export default function Home(){
         </div>
 
 
-        <input
-          className="search"
-          placeholder="Tìm kiếm sản phẩm..."
-        />
+        <div className="search-box">
 
+          <input
+            className="search"
+            placeholder="Tìm kiếm sản phẩm..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+
+          {suggestions.length > 0 && (
+            <div className="suggestions">
+
+              {suggestions.map((item) => (
+                <Link
+                  key={item.id}
+                  to={`/product/${item.id}`}
+                  className="suggestion-item"
+                >
+                  {item.name}
+                </Link>
+              ))}
+
+            </div>
+          )}
+
+        </div>
 
 
         <div className="nav-right">

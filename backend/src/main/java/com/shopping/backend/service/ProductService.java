@@ -24,7 +24,8 @@ public class ProductService {
 
         return productRepository.findAll()
                 .stream()// nếu ko dùng map thì dùng for
-                .map(product -> ProductResponse.builder()
+                .map(product -> ProductResponse
+                        .builder()
                         .id(product.getId())
                         .categoryId(product.getCategory().getId())
                         .categoryName(product.getCategory().getName())
